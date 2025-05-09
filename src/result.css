@@ -1,0 +1,87 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+  
+  /* Main heading */
+  .result-heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-top: 1.5rem;
+    color: #222;
+    text-align: center;
+    letter-spacing: 2px;
+  }
+  
+  /* Score box */
+  .score-obtain {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #4CAF50;
+    text-align: center;
+    margin: 1rem auto;
+    padding: 12px 20px;
+    border-radius: 10px;
+    max-width: 300px;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  }
+  
+  /* Guide text */
+  .guide {
+    font-size: 1.2rem;
+    color: #555;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+  
+  /* Outer box container */
+  .out-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+  }
+  
+  /* Each question card */
+  .quesbox {
+    width: 90%;
+    max-width: 750px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .quesbox:hover {
+    transform: scale(1.01);
+  }
+  
+  .quesbox p {
+    font-size: 1.05rem;
+    color: #333;
+    line-height: 1.6;
+    margin: 0.5rem 0;
+  }
+  
+  /* Correct answer highlight */
+  .correct-answer {
+    font-weight: bold;
+    color: #2e7d32;
+    background-color: #e8f5e9;
+    padding: 10px 12px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-top: 0.5rem;
+  }
+  
