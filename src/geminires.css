@@ -1,0 +1,187 @@
+/* geminires.css */
+
+/* Overall container */
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #fff8dc; /* light yellow-ish */
+  border-radius: 12px;
+}
+
+/* Individual question card */
+.card {
+  background-color: #fffbe6;
+  border: 1px solid #e1d8b6;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 8px rgba(180, 160, 100, 0.15);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Question */
+.card h5 {
+  margin-bottom: 1rem;
+  color: #594d00;
+  font-size: 1.2rem;
+}
+
+/* Options list */
+.card ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 1rem;
+}
+
+.card ul li {
+  padding: 6px 10px;
+  margin-bottom: 4px;
+  background-color: #fffbdd;
+  border-left: 4px solid #c9b458;
+  border-radius: 5px;
+  color: #403c00;
+  font-weight: 500;
+}
+
+/* Answer */
+.card strong {
+  color: #2f4f4f;
+  font-size: 1rem;
+}
+
+.btn-2{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 1rem;
+}
+
+
+.btn-2 button {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Edit Button Style */
+.edit-btn {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+/* Delete Button Style */
+.delete-btn {
+  background-color: #f44336; /* Red */
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f;
+  transform: scale(1.05);
+}
+
+.edit-form-inline {
+  background-color: #fffdfb;
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 10px;
+}
+
+.edit-form-inline h5 {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+}
+
+.edit-form-inline form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-form-inline input[type="text"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.instructions-section {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px 25px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.instructions-section h4 {
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  color: #222;
+}
+
+.instructions-section ol {
+  padding-left: 20px;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+.instructions-section ol li {
+  margin-bottom: 10px;
+}
+
+.instructions-section ol li strong {
+  color: #007bff; /* subtle blue highlight */
+}
+
+.generating {
+  background-color: #007bff;       /* Bright blue background */
+  color: white;                   /* White text */
+  border: none;                   /* Remove default border */
+  padding: 10px 25px;             /* Comfortable padding */
+  font-size: 1rem;                /* Readable font size */
+  font-weight: 600;               /* Slightly bold text */
+  border-radius: 6px;             /* Rounded corners */
+  cursor: pointer;                /* Pointer on hover */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+  margin: 1rem;
+  
+}
+
+.generating:hover {
+  background-color: #0056b3;      /* Darker blue on hover */
+  box-shadow: 0 6px 12px rgba(0, 86, 179, 0.5);
+}
+
+.generating:active {
+  background-color: #004080;      /* Even darker on click */
+  box-shadow: none;
+}
+
+.generating:focus {
+  outline: 2px solid #0056b3;    /* Visible focus ring */
+  outline-offset: 2px;
+}

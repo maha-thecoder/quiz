@@ -6,7 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { addDoc, Timestamp } from "firebase/firestore";
 
 
-export default function Quiz() {
+export default function Quiz({userid}) {
+
+  
   const [questions, setQuestions] = useState([]);
   const [score, setScore] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -34,9 +36,10 @@ export default function Quiz() {
   const q = questions[current];
 
   useEffect(() => {
+    if(!userid) return;
     const loadQuestions = async () => {
       try {
-        const snapshot = await getDocs(collection(db, "question-details"));
+        const snapshot = await getDocs(collection(db,'users',userid,'admin-questions'));
         const data = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -50,8 +53,9 @@ export default function Quiz() {
     };
 
     loadQuestions();
-  }, []);
+  }, [userid]);
 
+  console.log(questions)
   useEffect(() => {
     localStorage.setItem("currentquestion", current);
     localStorage.setItem("userselected", JSON.stringify(selectAns));

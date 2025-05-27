@@ -1,7 +1,7 @@
 .admin-body{
     
    
-    margin-top: 10vh;
+    margin-top: 5vh;
 }
 .admin-container {
     
@@ -53,3 +53,34 @@
   .submit-btn:hover {
     background: #0056b3;
   }
+
+  .prev-btn {
+  text-align: center;
+  float: right;
+  margin-right: 10%;
+  
+}
+
+.prev-button {
+  background-color: #4a90e2;
+  color: white;
+  font-size: 1.2rem;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease-in-out;
+  transform: scale(1);
+}
+
+.prev-button:hover {
+  background-color: #357ab7;
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+.prev-button:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}

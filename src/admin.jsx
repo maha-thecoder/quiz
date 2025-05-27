@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { auth, db } from "./firebase";
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import {  Timestamp } from "firebase/firestore";
 import './admin.css'
 import { useNavigate } from "react-router-dom";
 
@@ -8,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 export default function Admin() {
 
     const Navigate=useNavigate()
+    const [isdisabled, setisdisabled] = useState(false);
+    
 
   const [userdata, setuserdata] = useState({
     question: "",
@@ -25,28 +26,45 @@ export default function Admin() {
 
   const formsubmit = async (e) => {
     e.preventDefault();
+    setisdisabled(true); 
+    if (!userdata.question || !userdata.opt1 || !userdata.opt2 || !userdata.opt3 || !userdata.opt4) {
+      alert("Please fill in all fields");
+      setisdisabled(false); 
+      return;
+    }
     const { question, opt1, opt2, opt3, opt4, ans } = userdata;
 
     try {
-      await addDoc(collection(db, "question-details"), {
-        userid: auth.currentUser.uid,
-        question: question,
-        opt1: opt1,
-        opt2: opt2,
-        opt3: opt3,
-        opt4: opt4,
-        ans:ans,
-        uploaded: Timestamp.now(),
-      });
 
-      alert("Question added successfully!");
-      setuserdata({ question: "", opt1: "", opt2: "", opt3: "", opt4: "" });
+      let newquestion={
+        question,opt1,opt2,opt3,opt4,ans
+      }
+    
+
+      const existingdata=JSON.parse(localStorage.getItem('question')) || []
+      if (Array.isArray(existingdata)){
+      existingdata.push(newquestion)
+          localStorage.setItem('question',JSON.stringify(existingdata))
+}
+      else{
+  localStorage.setItem('question',JSON.stringify([newquestion]))
+      }
+
+
+      setuserdata({ question: "", opt1: "", opt2: "", opt3: "", opt4: "",ans:"" });
+      setisdisabled(false);
     } catch (error) {
       console.error("Error adding document: ", error);
+      setisdisabled(false);
     }
   };
 
+  
+
   return (
+    <div>
+      
+
     <div className="admin-body">
     <div className="admin-container">
       <h2 className="form-title">Add a New Question</h2>
@@ -106,15 +124,19 @@ export default function Admin() {
           className="input-field"
           required
         />
-        <button type="submit" className="submit-btn">
-          Submit
+        <button type="submit" className="submit-btn" disabled={isdisabled}>
+          {isdisabled ? "adding..." : "add question"}
         </button>
       </form>
+       
     </div>
-    <div className="btn">
-    <button className="btnn" onClick={() => Navigate('/quiz')}>take test now</button>
-
-      </div>
+    <div className="prev-btn">
+  <button className="prev-button" onClick={() => Navigate("/finalpre")}>
+    Show Test Preview
+  </button>
+</div>
+     
+    </div>
     </div>
   );
 }

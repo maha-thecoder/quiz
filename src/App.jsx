@@ -10,20 +10,27 @@ import Mainpage from "./mainpage";
 import Copy from "./copyrigts";
 import Navbar from "./navbar";
 import Beforetest from "./beforetest";
+import Finaladminprev from "./fianladminprev";
+import AiQuestion from "./aiquestion";
+import Geminires from "./geminires";
+import DeclarationPage from "./aiagreement";
 export default function App(){
 
   const [user,setuser]=useState(null);
+  const[userruid,setuseruid]=useState(null)
 
   useEffect(()=>{
     const unsubscribe=onAuthStateChanged(auth,async(currentuser)=>{
       if(currentuser){
         setuser(currentuser)
+        setuseruid(currentuser.uid)
 
       }
       else{
         signInAnonymously(auth)
         .then((usercred)=>{
           setuser(usercred.user)
+          setuseruid
         })
         .catch((err)=>{
 
@@ -54,6 +61,31 @@ export default function App(){
           </>
         }/>
 
+        <Route path="/ai-page" element={
+          <>
+          <AiQuestion/>
+         
+        
+          </>
+        }/>
+
+        <Route path="/ai-response" element={
+          <>
+          <Geminires/>
+         
+        
+          </>
+        }/>
+
+         <Route path="/declaration" element={
+          <>
+          <DeclarationPage/>
+         
+        
+          </>
+        }/>
+
+
         
         <Route path="/admin" element={
           <>
@@ -62,8 +94,16 @@ export default function App(){
         
           </>
         }/>
+
+          <Route path="/finalpre" element={
+          <>
+          
+           <Finaladminprev/>
+        
+          </>
+        }/>
         <Route path="/quiz" element={
-          <Quiz/>
+          <Quiz userid={userruid}/>
         }/>
 
 <Route path="/result" element={

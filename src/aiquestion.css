@@ -1,0 +1,135 @@
+/* Global Container */
+.ai-container {
+  font-family: 'Segoe UI', sans-serif;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 30px;
+  color: #3c2f2f;
+  background-color: #fffde7; /* light yellow background */
+}
+
+/* Header Section */
+.ai-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 10px;
+}
+
+.ai-header h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  color: #5d4037; /* rich brown */
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #6d4c41; /* soft brown */
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Form Section */
+.ai-form-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.ai-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 600px;
+  background: #fff8e1; /* slightly lighter yellow */
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f0e5c0;
+}
+
+.ai-form input {
+  padding: 14px;
+  font-size: 1rem;
+  border: 2px solid #d7ccc8;
+  border-radius: 8px;
+  background: #fffef2;
+  transition: all 0.3s;
+}
+
+.ai-form input:focus {
+  border-color: #795548;
+  outline: none;
+  box-shadow: 0 0 5px #a1887f55;
+}
+
+.ai-form button {
+  padding: 14px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  background-color: #6d4c41;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.ai-form button:hover {
+  background-color: #5d4037;
+  transform: scale(1.02);
+}
+
+/* AI Response Section */
+.ai-response-section {
+  background-color: #fff8e1;
+  border-left: 5px solid #6d4c41;
+  padding: 25px;
+  margin-top: 30px;
+  white-space: pre-wrap;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+.ai-response-section h2 {
+  margin-bottom: 15px;
+  color: #4e342e;
+}
+
+/* Instruction Section */
+.ai-how-to-use,
+.ai-about {
+  margin-top: 40px;
+  padding: 25px 30px;
+  background-color: #fffde7;
+  border-radius: 10px;
+  border: 1px solid #f0e5c0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.ai-how-to-use h2,
+.ai-about h2 {
+  color: #5d4037;
+  margin-bottom: 15px;
+}
+
+.ai-how-to-use ol,
+.ai-how-to-use ul {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+.ai-how-to-use li,
+.ai-about p {
+  line-height: 1.7;
+  color: #4e342e;
+}
+
+/* Footer */
+.ai-footer {
+  margin-top: 60px;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #8d6e63;
+  padding-bottom: 20px;
+}

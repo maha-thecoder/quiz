@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './beforetest.css';
 import { db } from "./firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 export default function Beforetest() {
-
   const history = useNavigate();
-
+  const [isdisabled, setisdisabled] = useState(false);
   const [namsubject, setnamsubject] = useState([]);
   const [time, settime] = useState({
     time: 0,
@@ -15,19 +14,45 @@ export default function Beforetest() {
   });
 
   const dbupdating = async () => {
-    for (const i of namsubject) {
-      try {
-        await addDoc(collection(db, 'sub-details'), {
-          name: i.name,
-          marks: i.marks,
-          time: time.time
-        });
-        alert('Data submitted successfully!');
-      } catch (err) {
-        console.log(err);
+
+    if (!time.time || !time.sub) {
+      alert("Please fill in all fields");
+      return;
+    }
+    setisdisabled(true); // Disable the 
+    
+
+    for(let i=0;i<namsubject.length;i++)
+      {
+        const subj=namsubject[i]
+        if(!subj.name || !subj.marks)
+        {
+          alert("Please fill in all subject fields");
+          setisdisabled(false); // Re-enable the button if validation fails
+          return;
+        }   
+
       }
+
+    try {
+     
+
+      history('/admin'); // Navigate after successful submission
+      console.log('clicked');
+
+    } catch (err) {
+      console.error("Error adding document: ", err);
+      setisdisabled(false); // Re-enable the button if there's an error
     }
   };
+
+  useEffect(()=>{
+    localStorage.setItem('time',JSON.stringify(time.time))
+    localStorage.setItem('no-sub',JSON.stringify(time.sub))
+    localStorage.setItem('subject',JSON.stringify(namsubject))
+
+
+  },[time.time,time.sub,namsubject])
 
   const handlechange = (e) => {
     const { name, value } = e.target;
@@ -82,6 +107,7 @@ export default function Beforetest() {
           value={time.time}
           onChange={handlechange}
           className="input-field"
+          required
         />
 
         <p className="input-label">How many subjects does this test contain?</p>
@@ -96,14 +122,10 @@ export default function Beforetest() {
         <h3 className="sub-heading">Subject Details:</h3>
         {rendersubfield()}
 
-        <div className="submit-btn" onClick={dbupdating}>
-          Submit
-        </div>
+        <button type="submit" className="submit-btn" disabled={isdisabled}>
+          {isdisabled ? "Submitting..." : "Next"}
+        </button>
       </form>
-
-      <div className="next-btn" onClick={() => history('/admin')}>
-        Next
-      </div>
     </div>
   );
 }
