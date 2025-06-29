@@ -1,7 +1,7 @@
 body,html{
 
     background: linear-gradient(135deg, #ffe6e6, #fff0b3);
-
+   
 }
 
 
@@ -129,8 +129,11 @@ body,html{
 
   .steps{
     margin: 20px;
+    
+   
   }
 
   .steps p{
     white-space:nowrap ;
+     max-width: 200px;
   }
