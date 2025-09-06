@@ -22,7 +22,7 @@ export default function Mainpage(){
             <div className="quiz-align">
                 <p className="box" onClick={()=>history('/pre-admin')} >Prepare Test</p>
                 <p className="box" onClick={()=>history('/ai-page')}>AI question generator</p>
-                <p className="box" onClick={()=>history('/quiz')}>Take Test</p>
+                <p className="box" onClick={()=>history('/quiztopic')}>Take Test</p>
                 <p className="box">Group QUIZ</p>
             </div>
 

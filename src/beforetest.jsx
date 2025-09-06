@@ -10,7 +10,8 @@ export default function Beforetest() {
   const [namsubject, setnamsubject] = useState([]);
   const [time, settime] = useState({
     time: 0,
-    sub: 0
+    sub: 0,
+    testname:''
   });
 
   const dbupdating = async () => {
@@ -50,18 +51,26 @@ export default function Beforetest() {
     localStorage.setItem('time',JSON.stringify(time.time))
     localStorage.setItem('no-sub',JSON.stringify(time.sub))
     localStorage.setItem('subject',JSON.stringify(namsubject))
+    localStorage.setItem('testname',JSON.stringify(time.testname))
 
 
-  },[time.time,time.sub,namsubject])
+  },[time.time,time.sub,namsubject,time.testname])
 
   const handlechange = (e) => {
     const { name, value } = e.target;
-    const intval = parseInt(value);
+    let intval=0
+     if (name === "testname") {
+    settime({ ...time, [name]: value });
+  } else {
+    intval = parseInt(value)
     settime({ ...time, [name]: intval });
+  }
 
     if (name === "sub") {
       setnamsubject(Array(intval).fill({ name: '', marks: '' }));
     }
+
+  
   };
 
   const handlesubchange = (index, field, value) => {
@@ -109,6 +118,17 @@ export default function Beforetest() {
           className="input-field"
           required
         />
+        <p className="input-label">Enter the test name</p>
+        <input 
+        type="text"
+        name="testname"
+        value={time.testname}
+        onChange={handlechange}
+        className="input-field"
+        required/>
+
+
+
 
         <p className="input-label">How many subjects does this test contain?</p>
         <input

@@ -10,6 +10,7 @@ export default function AiQuestion() {
   const history=useNavigate();
   const [aires, setAires] = useState('');
   const [userQues, setUserQues] = useState({
+    quizname:"",
     question: "",
     no_ques:""
   });
@@ -62,7 +63,7 @@ Repeat this format for each question.`
       if (data.candidates && data.candidates[0].content.parts[0].text) {
         const generated=data.candidates[0].content.parts[0].text
         history('/ai-response',{
-        state: { aires:generated }
+        state: { aires:generated,quizname:userQues.quizname }
       });
       } else {
         setAires("No valid response.");
@@ -73,8 +74,7 @@ Repeat this format for each question.`
     }
   }
 
-  console.log(userQues.no_ques);
-  console.log(userQues.question);
+  
 
   return (
     <div>
@@ -89,10 +89,19 @@ Repeat this format for each question.`
       <section className="ai-form-section">
         <form onSubmit={handleSubmit} className="ai-form">
 
+        <input
+            type="text"
+            name='quizname'
+            placeholder="Enter Quiz Name"
+            value={userQues.quizname}
+            onChange={handleChange}
+            required
+          />
+
           <input
             type="number"
             name='no_ques'
-            placeholder="Enter a topic (e.g., Quantum Physics, React Basics)"
+            placeholder="Enter number of questions.."
             value={userQues.no_ques}
             onChange={handleChange}
             required
@@ -100,7 +109,7 @@ Repeat this format for each question.`
           <input
             type="text"
             name='question'
-            placeholder="Enter a topic (e.g., Quantum Physics, React Basics)"
+            placeholder="Enter a topic to fetch questions(e.g., Quantum Physics, React Basics)"
             value={userQues.question}
             onChange={handleChange}
             required

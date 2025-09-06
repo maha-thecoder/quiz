@@ -8,10 +8,8 @@ export default function Admin() {
   const [isDisabled, setIsDisabled] = useState(false);
   const [formData, setFormData] = useState({
     question: "",
-    opt1: "",
-    opt2: "",
-    opt3: "",
-    opt4: "",
+    opt:["","","",""],
+   
     ans: "",
     uploaded: Timestamp.now(),
   });
@@ -20,20 +18,28 @@ export default function Admin() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const optchange=(optindex,value)=>{
+    setFormData(prev=>{
+      const updated=[...prev.opt]
+      updated[optindex]=value
+      return {...prev,opt:updated}
+    })
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsDisabled(true);
 
-    const { question, opt1, opt2, opt3, opt4, ans } = formData;
+    const { question,opt, ans } = formData;
 
-    if (!question || !opt1 || !opt2 || !opt3 || !opt4 || !ans) {
+    if (!question || opt.some(option=>option.trim()==="") || !ans) {
       alert("Please fill in all fields.");
       setIsDisabled(false);
       return;
     }
 
     try {
-      const newQuestion = { question, opt1, opt2, opt3, opt4, ans };
+      const newQuestion = { question, opt, ans };
       const existingData = JSON.parse(localStorage.getItem("question")) || [];
 
       if (Array.isArray(existingData)) {
@@ -45,10 +51,7 @@ export default function Admin() {
 
       setFormData({
         question: "",
-        opt1: "",
-        opt2: "",
-        opt3: "",
-        opt4: "",
+        opt:["","","",""],
         ans: "",
       });
       setIsDisabled(false);
@@ -72,42 +75,18 @@ export default function Admin() {
             className="input-field"
             required
           />
-          <input
-            type="text"
-            name="opt1"
-            placeholder="Option 1"
-            value={formData.opt1}
-            onChange={handleChange}
+         {
+          formData.opt.map((option,i)=>(
+            <input
+            key={i}
+            name="opt"
+            placeholder={`option ${i+1}`}
+            value={option}
+            onChange={(e)=>optchange(i,e.target.value)}
             className="input-field"
-            required
-          />
-          <input
-            type="text"
-            name="opt2"
-            placeholder="Option 2"
-            value={formData.opt2}
-            onChange={handleChange}
-            className="input-field"
-            required
-          />
-          <input
-            type="text"
-            name="opt3"
-            placeholder="Option 3"
-            value={formData.opt3}
-            onChange={handleChange}
-            className="input-field"
-            required
-          />
-          <input
-            type="text"
-            name="opt4"
-            placeholder="Option 4"
-            value={formData.opt4}
-            onChange={handleChange}
-            className="input-field"
-            required
-          />
+            />
+          ))
+         }
           <input
             type="text"
             name="ans"

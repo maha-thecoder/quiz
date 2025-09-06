@@ -14,6 +14,7 @@ import Finaladminprev from "./fianladminprev";
 import AiQuestion from "./aiquestion";
 import Geminires from "./geminires";
 import DeclarationPage from "./aiagreement";
+import Quiztopic from "./quiztopic";
 export default function App(){
 
   const [user,setuser]=useState(null);
@@ -61,6 +62,16 @@ export default function App(){
           </>
         }/>
 
+        <Route path="/quiztopic" element={
+          <>
+          <Quiztopic/>
+         
+        
+          </>
+        }/>
+
+
+
         <Route path="/ai-page" element={
           <>
           <AiQuestion/>
@@ -102,8 +113,12 @@ export default function App(){
         
           </>
         }/>
-        <Route path="/quiz" element={
-          <Quiz userid={userruid}/>
+        <Route path="/quiz/:testname" element={
+          <>
+          
+          <Quiz/>
+          
+          </>
         }/>
 
 <Route path="/result" element={

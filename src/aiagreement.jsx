@@ -2,20 +2,30 @@
 import React,{useEffect} from "react";
 import { useLocation } from "react-router-dom";
 import "./aiagreement.css";
+import axios from "axios";
 
 export default function DeclarationPage() {
      useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  const handlePrepareQuiz = () => {
-    alert("Quiz preparation initiated.");
-    // You can redirect or handle further logic here
-  };
+  
 
   const location = useLocation();
   const finalcontent= location.state?.final || "";
-  
+  const quizname=location.state?.quizname || ""
 
+  const payload={
+    testname:quizname,questions:finalcontent,
+  }
+
+  
+  const handlePrepareQuiz = async() => {
+
+   const API_BASE_URL = window.location.hostname === 'localhost'
+  ? 'http://localhost:4000'
+  : 'https://quiz-indol-six.vercel.app';
+const aiquestionpost = await axios.post(`${API_BASE_URL}/api/v1/quizopt/declaration`,payload)      
+  };
 
   return (
     <div className="declaration-container">

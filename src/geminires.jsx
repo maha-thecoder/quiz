@@ -2,14 +2,14 @@ import React,{useState} from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import './geminires.css';
-import e from "cors";
+import axios from "axios";
 
 export default function Geminires() {
   const history=useNavigate();
 
   const location = useLocation();
   const aiResponse = location.state?.aires || "";
-  console.log(aiResponse);
+  const quizname=location.state?.quizname || ""
   // Step 1: Split the AI response into separate question blocks
   const gemres = aiResponse.trim().split(/Question:/g).filter(Boolean);
 
@@ -37,10 +37,12 @@ export default function Geminires() {
       default: ans = 'No answer';
     }
 
+    let oneopt=Object.values(options)
+
     return {
       id: index,
       question,
-      ...options,
+      opt:oneopt,
       ans
     };
   });
@@ -80,14 +82,17 @@ export default function Geminires() {
     });
   }
 
+  console.log(parsedres)
 
  
   const deleteQuestion = (id) => {
     const updatedQuestions = Parsedres.filter(q => q.id !== id);
     setParsedres(updatedQuestions);
   }
-  const pagetransfer=()=>{
-    history('/declaration',{state:{final:Parsedres}})
+  const pagetransfer=async()=>{
+
+
+    history('/declaration',{state:{final:Parsedres,quizname:quizname}})
   }
 
   return (

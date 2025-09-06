@@ -1,18 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import './result.css';
+import axios from "axios";
 
 export default function Result() {
   const location = useLocation();
   const ans = location.state?.ans || {};
-  const score = location.state?.score || 0;
   const stateq = location.state?.stateq || [];
+  const userscore=location.state?.score || 0
+
+  
 
   return (
     <div>
       <h1 className="result-heading">RESULT</h1>
 
-      <p className="score-obtain">Nice, you got {score}/10 in the quiz</p>
+      <p className="score-obtain">Nice, you got {userscore}/10 in the quiz</p>
 
       <p className="guide">Here are the answers for your test</p>
 

@@ -126,14 +126,41 @@ body,html{
     transition: transform 0.3s ease;
 
   }
+.steps {
+  margin: 20px auto; 
+  width: 90%; 
+  max-width: 900px;
+  background: linear-gradient(135deg, #f9f9f9, #fff);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
 
-  .steps{
-    margin: 20px;
-    
-   
+.steps h3 {
+  margin-top: 20px;
+  color: #333;
+}
+
+.steps p {
+  white-space: normal;
+  line-height: 1.6;
+}
+
+
+  @media screen and (max-width:700px) {
+
+    .video-jpg p{
+      font-size: 1rem;
+      max-width: 100%;
+      
+    }
+    .steps p{
+    white-space:normal ;
+    max-width: 90%;
   }
 
-  .steps p{
-    white-space:nowrap ;
-     max-width: 200px;
+  .steps-cont{
+    font-size: 1rem;
+
+  }
   }

@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./quiz.css";
-import { db ,auth} from "./firebase";
-import { getDocs, collection } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
-import { addDoc, Timestamp } from "firebase/firestore";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 
 export default function Quiz({userid}) {
 
-  
+  const {testname}=useParams()
   const [questions, setQuestions] = useState([]);
   const [score, setScore] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [current, setCurrent] = useState(() => {
-    const saved = localStorage.getItem("currentquestion");
-    const parsed = parseInt(saved, 10);
-    return Number.isInteger(parsed) ? parsed : 0;
-  });
+  const [current, setCurrent] = useState(0);
   const [selected, setSelected] = useState(null);
   const [selectAns, setSelectAns] = useState(() => {
     try {
@@ -32,19 +26,22 @@ export default function Quiz({userid}) {
   const [loadingPercent, setLoadingPercent] = useState(0);
 
   const history=useNavigate()
-  const stateq=questions
-  const q = questions[current];
+
+  
+
 
   useEffect(() => {
-    if(!userid) return;
     const loadQuestions = async () => {
       try {
-        const snapshot = await getDocs(collection(db,'users',userid,'admin-questions'));
-        const data = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setQuestions(data);
+        const API_BASE_URL = window.location.hostname === 'localhost'
+    ? 'http://localhost:4000'
+    : 'https://quiz-indol-six.vercel.app';
+  const getques = await axios.get(`${API_BASE_URL}/api/v1/quizopt/quiz/${testname}`)
+  
+
+        console.log(getques.data)
+       
+        setQuestions(getques.data);
         setLoading(false);
       } catch (err) {
         console.error("Error fetching questions:", err);
@@ -53,14 +50,13 @@ export default function Quiz({userid}) {
     };
 
     loadQuestions();
-  }, [userid]);
+  }, []);
 
   console.log(questions)
   useEffect(() => {
-    localStorage.setItem("currentquestion", current);
     localStorage.setItem("userselected", JSON.stringify(selectAns));
     setSelected(selectAns[current] || null);
-  }, [current, selectAns]);
+  }, [ selectAns]);
 
   const handleOptionClick = (opt) => {
     setSelected(opt);
@@ -71,7 +67,7 @@ export default function Quiz({userid}) {
   };
 
   const next = () => {
-    if (current < questions.length - 1) {
+    if (current < questions[0].questions.length - 1) {
       setCurrent(current + 1);
     }
   };
@@ -82,53 +78,38 @@ export default function Quiz({userid}) {
     }
   };
 
-  const calculateScore = () => {
-    let total = 0;
-    questions.forEach((quest, index) => {
-      if (quest.ans === selectAns[index]) total++;
-    });
-    setScore(total);
-  };
+ 
 
   const handleFinalSubmit = async() => {
     try{
-    calculateScore();
-    //await storeusermark(score);
+    
+      const totalscore=questions[0].questions.reduce((total,quest,index)=>{
+        const dbans=quest.ans?.trim().toLowerCase()
+        const choosenans=selectAns[index].trim().toLowerCase()
+        return total +(dbans==choosenans?1:0)
+
+      },0)
+
+      setScore(totalscore)
+
+       await axios.post(`http://localhost:4000/api/v1/quizopt/quiz/${testname}`, { score: totalscore });
+
+    history('/result', { state: { score: totalscore, stateq: questions[0].questions } });
+
+   
     startLoadingAnimation();
     setShowSubmitModal(false);
     
     }
-    catch(err){
-      console.log(err)
-    }
-    finally{
-      history('/result',{ state: {score,stateq } })}
-
-      
-      
-    
-    // You can add a function here to send data to Firestore if needed
-  };
-
-  const storeusermark=async(finalscore)=>{
-    
-    if(!auth.currentUser) return;
-
-    try{
-        await addDoc(collection(db,'quiz-scores'),{
-            userid:auth.currentUser.uid,
-            name:auth.currentUser.displayName || "anonymus",
-            score:finalscore,
-            timestamp:Timestamp.now()
-
-        })
-    }
-    catch(err){
-        console.log(err)
-    }
-
+  catch(err){
+    console.log(err)
+  }
 }
 
+    console.log(score)
+   
+
+ 
 
   const startLoadingAnimation = () => {
     setLoadingAnim(true);
@@ -156,13 +137,13 @@ export default function Quiz({userid}) {
   if (questions.length === 0) return <div>No questions available.</div>;
 
   const reset=()=>{
-    localStorage.removeItem('currentquestion')
     localStorage.removeItem('userselected')
     setCurrent(0)
     setSelectAns({})
     setSelected(null)
 
   }
+
 
   return (
     <div className="reset">
@@ -174,10 +155,10 @@ export default function Quiz({userid}) {
 
 
       
-      <h2 className="question">{current + 1}. {q.question}</h2>
+      <h2 className="question">{current + 1}. {questions[0].questions[current].question}</h2>
 
       <div className="options">
-        {[q.opt1, q.opt2, q.opt3, q.opt4].map((opt, index) => (
+        {questions[0].questions[current].opt.map((opt, index) => (
           <button
             key={index}
             className={`option-btn ${selected === opt ? "selected" : ""}`}
@@ -192,14 +173,14 @@ export default function Quiz({userid}) {
         <button onClick={prev} disabled={current === 0}>Previous</button>
         <button
           onClick={() => {
-            if (current === questions.length - 1) {
+            if (current === questions[0].questions.length - 1) {
               setShowSubmitModal(true);
             } else {
               next();
             }
           }}
         >
-          {current === questions.length - 1 ? "Submit" : "Next"}
+          {current === questions[0].questions.length - 1 ? "Submit" : "Next"}
         </button>
 
       </div>
