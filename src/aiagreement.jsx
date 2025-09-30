@@ -23,7 +23,7 @@ export default function DeclarationPage() {
 
    const API_BASE_URL = window.location.hostname === 'localhost'
   ? 'http://localhost:4000'
-  : 'https://quiz-indol-six.vercel.app';
+  : 'https://quiz-backend-x32j.onrender.com';
 const aiquestionpost = await axios.post(`${API_BASE_URL}/api/v1/quizopt/declaration`,payload)      
   };
 

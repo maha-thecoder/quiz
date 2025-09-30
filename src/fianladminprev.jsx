@@ -29,7 +29,7 @@ export default function Finaladminprev() {
 
       const API_BASE_URL = window.location.hostname === 'localhost'
   ? 'http://localhost:4000'
-  : 'https://quiz-indol-six.vercel.app';
+  : 'https://quiz-backend-x32j.onrender.com';
 const res = await axios.post(`${API_BASE_URL}/api/v1/quizopt`,payload);
 
       alert('Data sent successfully');

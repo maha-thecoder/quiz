@@ -35,7 +35,7 @@ export default function Quiz({userid}) {
       try {
         const API_BASE_URL = window.location.hostname === 'localhost'
     ? 'http://localhost:4000'
-    : 'https://quiz-indol-six.vercel.app';
+    : 'https://quiz-backend-x32j.onrender.com';
   const getques = await axios.get(`${API_BASE_URL}/api/v1/quizopt/quiz/${testname}`)
   
 

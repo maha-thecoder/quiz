@@ -16,7 +16,7 @@ export default function Quiztopic() {
       try {
         const API_BASE_URL = window.location.hostname === 'localhost'
       ? 'http://localhost:4000'
-      : 'https://quiz-indol-six.vercel.app';
+      : 'https://quiz-backend-x32j.onrender.com';
     const res = await axios.get(`${API_BASE_URL}/api/v1/quizopt/quiztopic`)
     
         setTestnames(res.data);
