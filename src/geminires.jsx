@@ -43,7 +43,7 @@ export default function Geminires() {
       id: index,
       question,
       opt:oneopt,
-      ans
+      ans,
     };
   });
 
@@ -138,10 +138,9 @@ export default function Geminires() {
       <>
         <h5>{q.question}</h5>
         <ul>
-          <li>A. {q.opt1}</li>
-          <li>B. {q.opt2}</li>
-          <li>C. {q.opt3}</li>
-          <li>D. {q.opt4}</li>
+          {q.opt.map((option, index) => (
+            <li key={index}>{index+1}.{option}</li>
+          ))}
         </ul>
         <strong>Answer: {q.ans}</strong>
         <div className="btn-2">

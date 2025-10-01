@@ -92,7 +92,6 @@ export default function Quiz({userid}) {
 
       setScore(totalscore)
 
-       await axios.post(`http://localhost:4000/api/v1/quizopt/quiz/${testname}`, { score: totalscore });
 
     history('/result', { state: { score: totalscore, stateq: questions[0].questions } });
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { auth } from "./firebase";
 import { onAuthStateChanged, signInAnonymously } from "firebase/auth";
-import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate, BrowserRouter } from "react-router-dom";
 import Admin from "./admin";
 import Quiz from "./quiz";
 import Result from "./result";
@@ -45,7 +45,7 @@ export default function App(){
   },[])
   return(
     <>
-    <Router>
+    <BrowserRouter basename="/">
       <Routes>
         <Route path='/' element={
          <>
@@ -127,7 +127,7 @@ export default function App(){
       }/>
       </Routes>
       
-    </Router>
+    </BrowserRouter>
     
     </>
   )

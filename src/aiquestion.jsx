@@ -27,7 +27,7 @@ export default function AiQuestion() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDmuUsYAYbtqsJvqAbvRkk4l6crOOH3QeY";
+    const url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyD9piMjOGUN2k-HAtotVarAWWcTsbVzND4";
 
     const requestBody = {
       contents: [
@@ -114,7 +114,7 @@ Repeat this format for each question.`
             onChange={handleChange}
             required
           />
-          <button type="submit">Generate Questions</button>
+          <button type="submit" className='loaderbutton'>Generate Questions</button>
         </form>
       </section>
 
